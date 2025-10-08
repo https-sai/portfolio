@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = ".vercel_output/output/static" # or leave default if plugin handles
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
