@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  @keyframes marquee-px {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-1 * var(--listW, 0px))); }
+  }
+  @keyframes marquee-px-reverse {
+    from { transform: translateX(calc(-1 * var(--listW, 0px))); }
+    to   { transform: translateX(0); }
+  }
+}
+
+.dotted-background-container {
+  width: 100%;
+  height: 100%; /* Adjust as needed */
+  background-image: radial-gradient(circle at 1px 1px, oklch(37.2% 0.044 257.287) 1px, transparent 1px);
+  background-size: 20px 20px; /* Dot spacing */
+  background-color: #020617; /* slate-950 */
+}
+
+.lined-background-container {
+  width: 100%;
+  height: full; /* Adjust as needed */
+  --grid-size: 20px;                    /* spacing between lines */
+  --grid-thickness: 1px;                /* line weight */
+  --grid-color: #3ca1ff4b; 
+  background-color: #fff0b0;            /* slate-950 */
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      var(--grid-color) 0 calc(var(--grid-thickness)),
+      transparent calc(var(--grid-thickness)) var(--grid-size)
+    );
+  background-size: var(--grid-size) var(--grid-size);
+}
+
+.iceland-regular {
+  font-family: "Iceland", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
