@@ -1,5 +1,3 @@
-import HighlightText from "@/app/components/HighlightText";
-
 // tiny renderer for "Rich text (Blocks)" paragraphs and lists
 export function Blocks({ nodes }: { nodes: any[] }) {
   return (

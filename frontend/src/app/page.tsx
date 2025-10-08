@@ -1,4 +1,4 @@
-import { getSite, getSocials, getSkills, getProjects } from "../lib/data";
+import { getSite, getSocials, getSkills } from "../lib/data";
 import { Blocks } from "../lib/utils";
 import ProjectsPage from "./pages/ProjectsPage";
 import ExperiencesPage from "./pages/ExperiencesPage";

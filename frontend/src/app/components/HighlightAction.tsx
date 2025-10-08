@@ -1,74 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEventHandler } from "react";
 
 type CommonProps = {
   children: ReactNode;
   className?: string;
 };
 
-type AsButton = CommonProps & {
-  as?: "button";
+type ButtonProps = CommonProps & {
+  as?: "button"; // default
   type?: "button" | "submit" | "reset";
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
-type AsLink = CommonProps & {
+type LinkProps = CommonProps & {
   as: "a";
   href: string;
   target?: string;
   rel?: string;
 };
 
-type Props = AsButton | AsLink;
+type Props = ButtonProps | LinkProps;
 
 const variants = {
   rest: { width: "0%" },
   hover: { width: "100%" },
 };
 
-export default function HighlightAction(props: Props) {
-  const {
-    children,
-    className = "",
-
-    href,
-
-    onClick,
-
-    type = "button",
-    as = "button",
-
-    target,
-    color = "",
-
-    rel,
-  } = props as any;
-
-  const Comp: any = as === "a" ? motion.a : motion.button;
-
+function Inner({ children }: { children: ReactNode }) {
   return (
-    <Comp
-      href={href}
-      onClick={onClick}
-      type={as === "button" ? type : undefined}
-      target={target}
-      rel={rel}
-      initial="rest"
-      whileHover="hover"
-      whileFocus="hover"
-      animate="rest"
-      className={[
-        // base look: black bg, white text
-        "relative inline-flex items-center justify-center",
-        "px-3 py-1 rounded border border-white",
-        "bg-black text-white",
-        "overflow-hidden select-none",
-        "transition-colors focus:outline-none focus:ring-2 focus:ring-white/40",
-        className,
-      ].join(" ")}
-    >
+    <>
       {/* expanding white background */}
       <motion.span
         variants={variants}
@@ -90,6 +52,52 @@ export default function HighlightAction(props: Props) {
           {children}
         </span>
       </motion.span>
-    </Comp>
+    </>
+  );
+}
+
+export default function HighlightAction(props: Props) {
+  const baseClasses = [
+    "relative inline-flex items-center justify-center",
+    "px-3 py-1 rounded border border-white",
+    "bg-black text-white",
+    "overflow-hidden select-none",
+    "transition-colors focus:outline-none focus:ring-2 focus:ring-white/40",
+    props.className ?? "",
+  ].join(" ");
+
+  // Discriminate on props.as to keep types strict
+  if (props.as === "a") {
+    const { href, target, rel, children } = props;
+    return (
+      <motion.a
+        href={href}
+        target={target}
+        rel={rel}
+        initial="rest"
+        whileHover="hover"
+        whileFocus="hover"
+        animate="rest"
+        className={baseClasses}
+      >
+        <Inner>{children}</Inner>
+      </motion.a>
+    );
+  }
+
+  // default: button
+  const { type = "button", onClick, children } = props;
+  return (
+    <motion.button
+      type={type}
+      onClick={onClick}
+      initial="rest"
+      whileHover="hover"
+      whileFocus="hover"
+      animate="rest"
+      className={baseClasses}
+    >
+      <Inner>{children}</Inner>
+    </motion.button>
   );
 }

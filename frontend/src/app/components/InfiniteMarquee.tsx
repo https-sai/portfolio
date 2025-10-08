@@ -60,8 +60,8 @@ export default function InfiniteMarquee({
   }, [items, gapClass]);
 
   const styleVars: React.CSSProperties = {
-    ["--dur" as any]: `${speedSeconds}s`,
-    ["--listW" as any]: `${dist}px`,
+    ["--dur" as string]: `${speedSeconds}s`,
+    ["--listW" as string]: `${dist}px`,
     animation:
       dist > 0
         ? `${

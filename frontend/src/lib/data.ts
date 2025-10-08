@@ -33,18 +33,11 @@ type Project = {
     github: string;
 }
 
-type Experience = {
-    id: number;
-    role: string;
-    company: string;
-    description: string;
-    dates: string;
-}
 
 export async function getExperiences() {
     const res = (await strapi.find("experiences", {
         fields: ["role", "company", "description", "dates"],     // only what we need
-    })) as any;
+    }));
 
     const rows =
     (res?.data as Array<{ id: number; role: string; company: string; description: string; dates: string;  }>) ??
@@ -68,8 +61,7 @@ export async function getProjects(): Promise<Project[]>{
             populate: { logo: { fields: ["id", "name", "url"] }, }, // include media object
           },
         },
-        
-    })) as any;
+    }));
 
     const rows =
     (res?.data as Array<{ id: number; title: string; description: string; link: string; skills: Skill[]; github: string;  }>) ??
@@ -83,7 +75,6 @@ export async function getProjects(): Promise<Project[]>{
         skills: r.skills,
         github: r.github
     }));
-    
 }
 
 export async function getSkills(): Promise<Skill[]>{
@@ -92,9 +83,11 @@ export async function getSkills(): Promise<Skill[]>{
         populate: {                               // include media fields explicitly
           logo: { fields: ["id", "name", "url"] },
         },
-      })) as any;
+      }));
 
-    const rows: any[] = res?.data ?? [];
+      const rows =
+      (res?.data as Array<{ id: number; tool: string; logo: Image;  }>) ??
+      [];
 
     return rows.map((row) => ({
         id: row.id,
@@ -107,13 +100,12 @@ export async function getSkills(): Promise<Skill[]>{
             }
           : null,
       }));
-    
 }
 
 export async function getSocials(): Promise<Social[]>{
     const res = (await strapi.find("socials", {
         fields: ["platform", "link"],     // only what we need
-    })) as any;
+    }));
 
     const rows =
     (res?.data as Array<{ id: number; platform: string; link: string  }>) ??
@@ -124,19 +116,21 @@ export async function getSocials(): Promise<Social[]>{
         platform: r.platform,
         link: r.link,
       }));
-    
 }
 
-export async function getSite() {
-    // Single type => findOne('<uid>')
-    const res = (await strapi.find("site")) as any;
-    const data = res?.data as Site | undefined;
-    if (!data) return null;
-    return {
-        id: data.id,
-        name: data.name,
-        bio: data.bio,
-    };
-}
+function isSite(v: unknown): v is Site {
+    return !!v &&
+      !Array.isArray(v) &&
+      typeof (v as any).id === "number" &&
+      typeof (v as any).name === "string" &&
+      typeof (v as any).bio !== "undefined";
+  }
+  
+  export async function getSite(): Promise<Site | null> {
+    const res = await strapi.find("site");
+    const d: unknown = (res as { data?: unknown })?.data;
+    if (!isSite(d)) return null;
+    return d; // typed as Site
+  }
 
 
