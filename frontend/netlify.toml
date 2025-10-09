@@ -1,7 +1,7 @@
 [build]
   base = "frontend"
-  command = "npm run build"
-  # do NOT set "publish" here for SSR
+  command = "npm ci && npm run build"
+  # DO NOT set "publish" here
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs"
+  package = "@netlify/plugin-nextjs
