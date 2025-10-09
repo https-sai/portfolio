@@ -17,7 +17,7 @@ export default function ProjectsPage() {
             {proj.skills?.map((skill) => (
               <img
                 key={skill.id}
-                src={STRAPI_URL! + skill.logo?.url}
+                src={skill.logo?.url}
                 className="w-5 h-5 opacity-80 hover:opacity-100 rounded"
               ></img>
             ))}

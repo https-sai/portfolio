@@ -12,6 +12,7 @@ import { STRAPI_URL } from "@/lib/strapi";
 export const revalidate = 60; // optional ISR (refresh at most once/minute)
 
 // Blocks moved to src/lib/utils.ts
+console.log(STRAPI_URL);
 
 export default async function Home() {
   const site = await getSite();
@@ -39,7 +40,7 @@ export default async function Home() {
             >
               <img
                 key={skill.id}
-                src={STRAPI_URL! + skill.logo?.url}
+                src={skill.logo?.url}
                 loading="lazy"
                 className="h-10 w-auto opacity-80 hover:opacity-100 hover:grayscale-0 transition rounded"
               />
