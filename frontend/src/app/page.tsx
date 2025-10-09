@@ -74,7 +74,12 @@ export default async function Home() {
               </li>
             ))}
             <li>
-              <HighlightAction as="a" href="#" target="_blank" rel="noreferrer">
+              <HighlightAction
+                as="a"
+                href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume_2025_6_38dbe9b599.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
                 resume
               </HighlightAction>
             </li>
