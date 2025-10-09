@@ -4,4 +4,4 @@
   # DO NOT set "publish" here
 
 [[plugins]]
-  package = "@netlify/plugin-nextjs
+  package = "@netlify/plugin-nextjs"
