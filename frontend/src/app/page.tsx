@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getSite, getSocials, getSkills } from "../lib/data";
 import { Blocks } from "../lib/utils";
 import ProjectsPage from "./pages/ProjectsPage";
@@ -7,12 +8,10 @@ import InfiniteMarquee from "./components/InfiniteMarquee";
 import Postit from "./components/Postit";
 import HighlightText from "./components/HighlightText";
 import HighlightAction from "./components/HighlightAction";
-import { STRAPI_URL } from "@/lib/strapi";
 
 export const revalidate = 60; // optional ISR (refresh at most once/minute)
 
 // Blocks moved to src/lib/utils.ts
-console.log(STRAPI_URL);
 
 export default async function Home() {
   const site = await getSite();
@@ -32,20 +31,27 @@ export default async function Home() {
     <main className="w-full dotted-background-container">
       <div className="py-8 pt-20">
         <InfiniteMarquee
-          items={skills?.map((skill) => (
-            <a
-              key={skill.id}
-              className="inline-flex items-center"
-              tabIndex={-1}
-            >
-              <img
+          items={skills
+            ?.filter(
+              (skill): skill is typeof skill & { logo: { url: string } } =>
+                !!skill.logo?.url
+            )
+            .map((skill) => (
+              <a
                 key={skill.id}
-                src={skill.logo?.url}
-                loading="lazy"
-                className="h-10 w-auto opacity-80 hover:opacity-100 hover:grayscale-0 transition rounded"
-              />
-            </a>
-          ))}
+                className="inline-flex items-center"
+                tabIndex={-1}
+              >
+                <Image
+                  key={skill.id}
+                  src={skill.logo?.url}
+                  alt={skill.logo.name}
+                  width={40}
+                  height={40}
+                  className="h-10 w-auto opacity-80 hover:opacity-100 hover:grayscale-0 transition rounded"
+                />
+              </a>
+            ))}
           speedSeconds={30}
           gapClass="gap-10"
           reverse={true}

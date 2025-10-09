@@ -1,9 +1,9 @@
+import Image from "next/image";
 import React from "react";
 import { getProjects } from "@/lib/data";
 import { Blocks } from "@/lib/utils";
 import HighlightText from "../components/HighlightText";
 import HighlightAction from "../components/HighlightAction";
-import { STRAPI_URL } from "@/lib/strapi";
 
 const projects = await getProjects();
 
@@ -14,13 +14,21 @@ export default function ProjectsPage() {
         <div key={proj.id} className="border p-4 rounded hover:bg-white/5">
           <HighlightText text={proj.title} className="text-xl font-bold" />
           <div className="flex gap-2 py-2">
-            {proj.skills?.map((skill) => (
-              <img
-                key={skill.id}
-                src={skill.logo?.url}
-                className="w-5 h-5 opacity-80 hover:opacity-100 rounded"
-              ></img>
-            ))}
+            {proj.skills
+              ?.filter(
+                (skill): skill is typeof skill & { logo: { url: string } } =>
+                  !!skill.logo?.url
+              )
+              .map((skill) => (
+                <Image
+                  key={skill.id}
+                  src={skill.logo?.url}
+                  alt={skill.logo.name}
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 opacity-80 hover:opacity-100 rounded"
+                />
+              ))}
           </div>
           <div className="px-2 py-4">
             {Array.isArray(proj.description) ? (
