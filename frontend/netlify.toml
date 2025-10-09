@@ -1,6 +1,7 @@
 [build]
+  base = "frontend"
   command = "npm run build"
-  publish = ".vercel_output/output/static" # or leave default if plugin handles
+  # do NOT set "publish" here for SSR
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
