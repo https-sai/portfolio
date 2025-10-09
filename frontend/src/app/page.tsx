@@ -7,6 +7,7 @@ import InfiniteMarquee from "./components/InfiniteMarquee";
 import Postit from "./components/Postit";
 import HighlightText from "./components/HighlightText";
 import HighlightAction from "./components/HighlightAction";
+import { STRAPI_URL } from "@/lib/strapi";
 
 export const revalidate = 60; // optional ISR (refresh at most once/minute)
 
@@ -30,14 +31,15 @@ export default async function Home() {
     <main className="w-full dotted-background-container">
       <div className="py-8 pt-20">
         <InfiniteMarquee
-          items={skills.map((skill) => (
+          items={skills?.map((skill) => (
             <a
               key={skill.id}
               className="inline-flex items-center"
               tabIndex={-1}
             >
               <img
-                src={skill.logo?.url}
+                key={skill.id}
+                src={STRAPI_URL! + skill.logo?.url}
                 loading="lazy"
                 className="h-10 w-auto opacity-80 hover:opacity-100 hover:grayscale-0 transition rounded"
               />

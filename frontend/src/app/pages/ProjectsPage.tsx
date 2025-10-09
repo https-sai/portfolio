@@ -3,6 +3,7 @@ import { getProjects } from "@/lib/data";
 import { Blocks } from "@/lib/utils";
 import HighlightText from "../components/HighlightText";
 import HighlightAction from "../components/HighlightAction";
+import { STRAPI_URL } from "@/lib/strapi";
 
 const projects = await getProjects();
 
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
             {proj.skills?.map((skill) => (
               <img
                 key={skill.id}
-                src={process.env.STRAPI_URL! + skill.logo?.url}
+                src={STRAPI_URL! + skill.logo?.url}
                 className="w-5 h-5 opacity-80 hover:opacity-100 rounded"
               ></img>
             ))}

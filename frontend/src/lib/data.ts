@@ -96,7 +96,7 @@ export async function getSkills(): Promise<Skill[]>{
           ? {
               id: row.logo.id,
               name: row.logo.name,
-              url: process.env.STRAPI_URL + row.logo.url,
+              url: row.logo.url,
             }
           : null,
       }));
