@@ -9,7 +9,10 @@ export default function ExperiencesPage() {
   return (
     <div className="space-y-6">
       {experiences.reverse().map((exp) => (
-        <div key={exp.id} className="border p-4 rounded hover:bg-white/5">
+        <div
+          key={exp.id}
+          className="border-white/80 border-1 p-4 rounded hover:bg-white/5"
+        >
           <div className="space-y-2">
             <h1>
               <HighlightText
@@ -27,7 +30,7 @@ export default function ExperiencesPage() {
               />
             </h1>
           </div>
-          <div className="p-4">
+          <div className="p-4 text-white">
             {Array.isArray(exp.description) ? (
               <Blocks nodes={exp.description} />
             ) : exp.description ? (
