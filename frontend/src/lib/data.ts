@@ -133,4 +133,3 @@ function isSite(v: unknown): v is Site {
     return d; // typed as Site
   }
 
-

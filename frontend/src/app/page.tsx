@@ -76,7 +76,7 @@ export default async function Home() {
             <li>
               <HighlightAction
                 as="a"
-                href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Ahmed_Resume_aa6d4cd8c7.pdf"
+                href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume2025_8089b85891.pdf"
                 target="_blank"
                 rel="noreferrer"
               >
