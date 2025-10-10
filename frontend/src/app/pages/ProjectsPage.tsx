@@ -27,7 +27,7 @@ export default function ProjectsPage() {
             {Array.isArray(proj.description) ? (
               <Blocks nodes={proj.description} />
             ) : proj.description ? (
-              <p className="text-gray-700">{proj.description}</p>
+              <p>{proj.description}</p>
             ) : null}
           </div>
 

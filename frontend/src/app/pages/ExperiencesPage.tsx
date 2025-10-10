@@ -31,7 +31,7 @@ export default function ExperiencesPage() {
             {Array.isArray(exp.description) ? (
               <Blocks nodes={exp.description} />
             ) : exp.description ? (
-              <p className="text-gray-700">{exp.description}</p>
+              <p>{exp.description}</p>
             ) : null}
           </div>
         </div>
