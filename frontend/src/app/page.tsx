@@ -1,3 +1,4 @@
+// app/page.tsx (or wherever Home lives)
 import { getSite, getSocials, getSkills } from "../lib/data";
 import { Blocks } from "../lib/utils";
 import ProjectsPage from "./pages/ProjectsPage";
@@ -9,10 +10,7 @@ import HighlightText from "./components/HighlightText";
 import HighlightAction from "./components/HighlightAction";
 import { STRAPI_URL } from "@/lib/strapi";
 
-export const revalidate = 60; // optional ISR (refresh at most once/minute)
-
-// Blocks moved to src/lib/utils.ts
-console.log(STRAPI_URL);
+export const revalidate = 60;
 
 export default async function Home() {
   const site = await getSite();
@@ -21,7 +19,7 @@ export default async function Home() {
 
   if (!site) {
     return (
-      <main className="p-8">
+      <main className="p-6 sm:p-8">
         No site settings found. Create & **Publish** the single record in
         Strapi.
       </main>
@@ -30,7 +28,11 @@ export default async function Home() {
 
   return (
     <main className="w-full dotted-background-container">
-      <div className="py-8 pt-20">
+      {/* Top padding respects iOS safe area & header overlap */}
+      <div className="pt-[env(safe-area-inset-top)]" />
+
+      {/* Skills marquee */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8 md:pt-16">
         <InfiniteMarquee
           items={skills?.map((skill) => (
             <a
@@ -39,70 +41,90 @@ export default async function Home() {
               tabIndex={-1}
             >
               <img
-                key={skill.id}
                 src={skill.logo?.url}
                 alt={skill.tool}
                 loading="lazy"
-                className="h-10 w-auto opacity-80 hover:opacity-100 hover:grayscale-0 transition rounded"
+                className="h-8 sm:h-9 md:h-10 w-auto opacity-80 hover:opacity-100 transition rounded"
               />
             </a>
           ))}
-          speedSeconds={30}
-          gapClass="gap-10"
-          reverse={true}
+          speedSeconds={28}
+          gapClass="gap-6 sm:gap-8 md:gap-10"
+          reverse
           fadeEdges={false}
+          // If you implement prefers-reduced-motion in InfiniteMarquee, you can pass a prop here to disable.
         />
       </div>
 
-      <div className="px-50 py-5 inline-flex items-center">
-        <div>
-          <HighlightText text={site.name} className="text-5xl font-bold" />
-        </div>
+      {/* Header: name + socials/resume */}
+      <header className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="py-4 sm:py-6 md:py-8 grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="text-center md:text-left">
+            <HighlightText
+              text={site.name}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold"
+            />
+          </div>
 
-        <div className="ml-50">
-          <ul className="flex flex-wrap gap-4">
-            {socials.map((s) => (
-              <li key={s.id}>
+          <nav className="justify-center md:justify-end">
+            <ul className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center md:justify-end">
+              {socials.map((s) => (
+                <li key={s.id}>
+                  <HighlightAction
+                    as="a"
+                    href={s.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-3 py-2 text-sm sm:text-base"
+                    aria-label={s.platform}
+                  >
+                    {s.platform}
+                  </HighlightAction>
+                </li>
+              ))}
+              <li>
                 <HighlightAction
                   as="a"
-                  href={s.link}
+                  href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume2025_8089b85891.pdf"
                   target="_blank"
                   rel="noreferrer"
+                  className="px-3 py-2 text-sm sm:text-base"
                 >
-                  {s.platform}
+                  resume
                 </HighlightAction>
               </li>
-            ))}
-            <li>
-              <HighlightAction
-                as="a"
-                href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume2025_8089b85891.pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                resume
-              </HighlightAction>
-            </li>
-          </ul>
+            </ul>
+          </nav>
         </div>
-      </div>
+      </header>
 
-      <div className="px-50 py-5">
-        <Postit>
-          {Array.isArray(site.bio) ? (
-            <Blocks nodes={site.bio} />
-          ) : site.bio ? (
-            <p className="text-gray-700">{site.bio}</p>
-          ) : null}
-        </Postit>
-      </div>
+      {/* Bio / Post-it */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="py-4 sm:py-6">
+          <Postit>
+            {Array.isArray(site.bio) ? (
+              <Blocks nodes={site.bio} />
+            ) : site.bio ? (
+              <p className="text-gray-700 leading-relaxed sm:leading-7">
+                {site.bio}
+              </p>
+            ) : null}
+          </Postit>
+        </div>
+      </section>
 
-      <div className="px-50 py-4">
-        <Switcher
-          projects={<ProjectsPage />}
-          experiences={<ExperiencesPage />}
-        />
-      </div>
+      {/* Switcher: projects/experience */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="py-4 sm:py-6 md:py-8">
+          <Switcher
+            // Make sure Switcher tabs stack and scroll on mobile (see notes below)
+            projects={<ProjectsPage />}
+            experiences={<ExperiencesPage />}
+          />
+        </div>
+      </section>
+
+      <div className="pb-[env(safe-area-inset-bottom)]" />
     </main>
   );
 }
