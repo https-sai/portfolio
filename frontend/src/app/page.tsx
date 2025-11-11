@@ -105,14 +105,27 @@ export default async function Home() {
         {/* contact bento box and glass ui side by side */}
         <section className="container mx-auto px-4 sm:px-6 lg:px-12 p-10">
           <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-            <div className="glass-card flex-1 p-8 text-white relative overflow-hidden rounded-lg border border-white/50 hover:border-white/50">
-              {Array.isArray(site.bio) ? (
-                <Blocks nodes={site.bio} />
-              ) : site.bio ? (
-                <p className="text-white/90 leading-relaxed sm:leading-7">
-                  {site.bio}
-                </p>
-              ) : null}
+            <div className="glass-card flex-1 p-8 text-white relative overflow-hidden rounded-lg border border-white/50 hover:border-white/50 flex flex-col">
+              <div className="flex-1">
+                {Array.isArray(site.bio) ? (
+                  <Blocks nodes={site.bio} />
+                ) : site.bio ? (
+                  <p className="text-white/90 leading-relaxed sm:leading-7">
+                    {site.bio}
+                  </p>
+                ) : null}
+              </div>
+              <div className="flex gap-2 py-2 mt-4">
+                <HighlightAction
+                  as="a"
+                  href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Ahmed_Resume_430c6ca47b.pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-1 rounded border-white"
+                >
+                  resume
+                </HighlightAction>
+              </div>
             </div>
             <div className="flex-1 text-white">
               <Contact />
