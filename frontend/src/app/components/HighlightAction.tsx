@@ -39,7 +39,7 @@ function Inner({ children }: { children: ReactNode }) {
       />
 
       {/* base (white) content above bg */}
-      <span className="relative z-20">{children}</span>
+      <span className="relative z-20 inline-flex items-center">{children}</span>
 
       {/* clipped black content that appears only inside the sweep */}
       <motion.span

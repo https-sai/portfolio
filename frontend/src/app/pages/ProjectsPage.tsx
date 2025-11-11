@@ -9,11 +9,11 @@ const projects = await getProjects();
 
 export default function ProjectsPage() {
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {projects.map((proj) => (
         <div
           key={proj.id}
-          className="border-white/80 border-1 p-4 rounded hover:bg-white/5"
+          className="glass-card border border-white/50 rounded-lg p-4 text-white relative overflow-hidden"
         >
           <HighlightText text={proj.title} className="text-xl font-bold" />
           <div className="flex gap-2 py-2">
@@ -26,7 +26,7 @@ export default function ProjectsPage() {
               ></img>
             ))}
           </div>
-          <div className="px-2 py-4 text-white">
+          <div className="px-2 py-4">
             {Array.isArray(proj.description) ? (
               <Blocks nodes={proj.description} />
             ) : proj.description ? (

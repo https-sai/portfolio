@@ -9,6 +9,8 @@ import Postit from "./components/Postit";
 import HighlightText from "./components/HighlightText";
 import HighlightAction from "./components/HighlightAction";
 import { STRAPI_URL } from "@/lib/strapi";
+import DottedHoverGrid from "./components/DottedHoverGrid";
+import { Contact } from "./components/Contact";
 
 export const revalidate = 60;
 
@@ -27,104 +29,124 @@ export default async function Home() {
   }
 
   return (
-    <main className="w-full dotted-background-container">
-      {/* Top padding respects iOS safe area & header overlap */}
-      <div className="pt-[env(safe-area-inset-top)]" />
+    <DottedHoverGrid>
+      <main className="w-full">
+        {/* Top padding respects iOS safe area & header overlap */}
+        <div className="pt-[env(safe-area-inset-top)]" />
 
-      {/* Skills marquee */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8 md:pt-16">
-        <InfiniteMarquee
-          items={skills?.map((skill) => (
-            <a
-              key={skill.id}
-              className="inline-flex items-center"
-              tabIndex={-1}
-            >
-              <img
-                src={skill.logo?.url}
-                alt={skill.tool}
-                loading="lazy"
-                className="h-8 sm:h-9 md:h-10 w-auto opacity-80 hover:opacity-100 transition rounded"
+        {/* Skills marquee */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8 md:pt-16">
+          <InfiniteMarquee
+            items={skills?.map((skill) => (
+              <a
+                key={skill.id}
+                className="inline-flex items-center"
+                tabIndex={-1}
+              >
+                <img
+                  src={skill.logo?.url}
+                  alt={skill.tool}
+                  loading="lazy"
+                  className="h-8 sm:h-9 md:h-10 w-auto opacity-80 hover:opacity-100 transition rounded"
+                />
+              </a>
+            ))}
+            speedSeconds={50}
+            gapClass="gap-6 sm:gap-8 md:gap-10"
+            reverse
+            fadeEdges={true}
+            // If you implement prefers-reduced-motion in InfiniteMarquee, you can pass a prop here to disable.
+          />
+        </div>
+
+        {/* Header: name + socials/resume */}
+        <header className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="py-4 sm:py-6 md:py-8 grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-[1fr_auto] md:items-center">
+            <div className="text-center md:text-left">
+              <HighlightText
+                text={site.name}
+                className="text-2xl sm:text-4xl md:text-5xl font-bold"
               />
-            </a>
-          ))}
-          speedSeconds={28}
-          gapClass="gap-6 sm:gap-8 md:gap-10"
-          reverse
-          fadeEdges={false}
-          // If you implement prefers-reduced-motion in InfiniteMarquee, you can pass a prop here to disable.
-        />
-      </div>
-
-      {/* Header: name + socials/resume */}
-      <header className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="py-4 sm:py-6 md:py-8 grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-[1fr_auto] md:items-center">
-          <div className="text-center md:text-left">
-            <HighlightText
-              text={site.name}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold"
-            />
-          </div>
-
-          <nav className="justify-center md:justify-end">
-            <ul className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center md:justify-end">
-              {socials.map((s) => (
-                <li key={s.id}>
+            </div>
+            {/** 
+            <nav className="justify-center md:justify-end">
+              <ul className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center md:justify-end">
+                {socials.map((s) => (
+                  <li key={s.id}>
+                    <HighlightAction
+                      as="a"
+                      href={s.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-2 text-sm sm:text-base"
+                      aria-label={s.platform}
+                    >
+                      {s.platform}
+                    </HighlightAction>
+                  </li>
+                ))}
+                <li>
                   <HighlightAction
                     as="a"
-                    href={s.link}
+                    href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume2025_8089b85891.pdf"
                     target="_blank"
                     rel="noreferrer"
                     className="px-3 py-2 text-sm sm:text-base"
-                    aria-label={s.platform}
                   >
-                    {s.platform}
+                    resume
                   </HighlightAction>
                 </li>
-              ))}
-              <li>
-                <HighlightAction
-                  as="a"
-                  href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume2025_8089b85891.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-3 py-2 text-sm sm:text-base"
-                >
-                  resume
-                </HighlightAction>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+              </ul>
+            </nav>
+            */}
+          </div>
+        </header>
 
-      {/* Bio / Post-it */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="py-4 sm:py-6">
-          <Postit>
-            {Array.isArray(site.bio) ? (
-              <Blocks nodes={site.bio} />
-            ) : site.bio ? (
-              <p className="text-gray-700 leading-relaxed sm:leading-7">
-                {site.bio}
-              </p>
-            ) : null}
-          </Postit>
-        </div>
-      </section>
+        {/* contact bento box and glass ui side by side */}
+        <section className="container mx-auto px-4 sm:px-6 lg:px-12 p-10">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+            <div className="glass-card flex-1 p-8 text-white relative overflow-hidden rounded-lg border border-white/50 hover:border-white/50">
+              {Array.isArray(site.bio) ? (
+                <Blocks nodes={site.bio} />
+              ) : site.bio ? (
+                <p className="text-white/90 leading-relaxed sm:leading-7">
+                  {site.bio}
+                </p>
+              ) : null}
+            </div>
+            <div className="flex-1 text-white">
+              <Contact />
+            </div>
+          </div>
+        </section>
 
-      {/* Switcher: projects/experience */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="py-4 sm:py-6 md:py-8">
-          <Switcher
-            // Make sure Switcher tabs stack and scroll on mobile (see notes below)
-            projects={<ProjectsPage />}
-            experiences={<ExperiencesPage />}
-          />
-        </div>
-      </section>
+        {/* Bio / Post-it */}
+        <section className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="py-4 sm:py-6">
+            <Postit>
+              i built this portfolio using next.js, tailwindcss, framer motion,
+              and strapi. im using a collection of reusable components i built
+              that can be customized via props (demos + code on my blog), as
+              well as the strapi headless cms so that i can scale and update the
+              content on here efficiently. deployed using netlify + strapi cloud
+              :)
+            </Postit>
+          </div>
+        </section>
 
-      <div className="pb-[env(safe-area-inset-bottom)]" />
-    </main>
+        {/* Switcher: projects/experience */}
+        <section className="container mx-auto px-4 sm:px-6 lg:px-12">
+          <div className="py-4 sm:py-6 md:py-8">
+            <Switcher
+              // Make sure Switcher tabs stack and scroll on mobile (see notes below)
+              projects={<ProjectsPage />}
+              experiences={<ExperiencesPage />}
+            />
+          </div>
+        </section>
+
+        <div className="pb-[env(safe-area-inset-bottom)]" />
+      </main>
+    </DottedHoverGrid>
   );
 }
