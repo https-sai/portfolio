@@ -59,12 +59,7 @@ export default function ExperiencesPage() {
             <h1>
               <HighlightText text={exp.company} className="font-bold mb-2" />
             </h1>
-            <h1>
-              <HighlightText
-                text={exp.dates}
-                className="text-xs font-bold mb-2"
-              />
-            </h1>
+            <h1 className="text-xs font-bold mb-2">{exp.dates}</h1>
           </div>
           <div className="p-4">
             {Array.isArray(exp.description) ? (

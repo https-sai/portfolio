@@ -1,6 +1,10 @@
 export default ({ env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
+    sessions: {
+      maxRefreshTokenLifespan: env.int('ADMIN_SESSION_MAX_REFRESH_TOKEN_LIFESPAN', 60 * 60 * 24 * 30), // 30 days in seconds
+      maxSessionLifespan: env.int('ADMIN_SESSION_MAX_LIFESPAN', 60 * 60 * 24), // 1 day in seconds
+    },
   },
   apiToken: {
     salt: env('API_TOKEN_SALT'),

@@ -3,7 +3,8 @@ import { strapi } from "./strapi";
 type Site = {
     id: number;
     name: string;
-    bio: string; 
+    bio: string;
+    resume: Image | null;
 };
 
 type Social = {
@@ -127,9 +128,29 @@ function isSite(v: unknown): v is Site {
   }
   
   export async function getSite(): Promise<Site | null> {
-    const res = await strapi.find("site");
+    const res = await strapi.find("site", {
+      populate: {
+        resume: { fields: ["id", "name", "url"] },
+      },
+    });
     const d: unknown = (res as { data?: unknown })?.data;
     if (!isSite(d)) return null;
-    return d; // typed as Site
+    
+    // Map the resume field properly
+    const resumeData = (d as any).resume;
+    const resume = resumeData
+      ? {
+          id: resumeData.id,
+          name: resumeData.name,
+          url: resumeData.url,
+        }
+      : null;
+    
+    return {
+      id: (d as any).id,
+      name: (d as any).name,
+      bio: (d as any).bio,
+      resume,
+    };
   }
 

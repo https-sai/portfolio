@@ -68,37 +68,6 @@ export default async function Home() {
                 className="text-2xl sm:text-4xl md:text-5xl font-bold"
               />
             </div>
-            {/** 
-            <nav className="justify-center md:justify-end">
-              <ul className="flex flex-wrap gap-2 sm:gap-3 md:gap-4 justify-center md:justify-end">
-                {socials.map((s) => (
-                  <li key={s.id}>
-                    <HighlightAction
-                      as="a"
-                      href={s.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-3 py-2 text-sm sm:text-base"
-                      aria-label={s.platform}
-                    >
-                      {s.platform}
-                    </HighlightAction>
-                  </li>
-                ))}
-                <li>
-                  <HighlightAction
-                    as="a"
-                    href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Resume2025_8089b85891.pdf"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-3 py-2 text-sm sm:text-base"
-                  >
-                    resume
-                  </HighlightAction>
-                </li>
-              </ul>
-            </nav>
-            */}
           </div>
         </header>
 
@@ -116,15 +85,17 @@ export default async function Home() {
                 ) : null}
               </div>
               <div className="flex gap-2 py-2 mt-4">
-                <HighlightAction
-                  as="a"
-                  href="https://refreshing-victory-1b93487cfd.media.strapiapp.com/Saima_Ahmed_Resume_430c6ca47b.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-3 py-1 rounded border-white"
-                >
-                  resume
-                </HighlightAction>
+                {site.resume?.url && (
+                  <HighlightAction
+                    as="a"
+                    href={site.resume.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-1 rounded border-white"
+                  >
+                    resume
+                  </HighlightAction>
+                )}
               </div>
             </div>
             <div className="flex-1 text-white">
