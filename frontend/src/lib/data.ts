@@ -48,7 +48,7 @@ export async function getProjectsWithSkills() {
     try {
       const response = await axios.get(`${STRAPI_URL}/api/projects?populate=skills`);
       return response.data.data; // Access the data array
-    } catch (error) {
+    } catch {
       return [];
     }
   }

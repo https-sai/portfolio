@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 
 interface SkillItemProps {
   skill: {
@@ -73,10 +74,11 @@ export default function SkillItem({ skill, size = "md" }: SkillItemProps) {
         onMouseLeave={() => setShowTooltip(false)}
       >
         <a className="inline-flex items-center" tabIndex={-1}>
-          <img
+          <Image
             src={skill.logo.url}
             alt={skill.tool}
-            loading="lazy"
+            width={40}
+            height={40}
             className={`w-auto opacity-80 hover:opacity-100 transition rounded ${
               size === "sm"
                 ? "h-6 sm:h-7"
@@ -84,6 +86,7 @@ export default function SkillItem({ skill, size = "md" }: SkillItemProps) {
                 ? "h-10 sm:h-12 md:h-14"
                 : "h-8 sm:h-9 md:h-10"
             }`}
+            unoptimized
           />
         </a>
       </div>

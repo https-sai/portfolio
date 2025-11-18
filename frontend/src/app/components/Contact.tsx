@@ -35,7 +35,7 @@ const Contact = () => {
           ? "sm:col-span-2 sm:col-start-1 sm:row-start-3"
           : "sm:col-start-2 sm:row-start-3",
     };
-  }, [isBlogHovered, isGithubHovered, isLinkedInHovered, isXHovered]);
+  }, [isBlogHovered, isLinkedInHovered, isXHovered]);
 
   return (
     <div className="w-full max-w-7xl px-4 sm:px-8 md:pl-12 lg:pl-20">

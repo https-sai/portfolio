@@ -14,7 +14,6 @@ import SkillItem from "./components/SkillItem";
 
 export default async function Home() {
   const site = await getSite();
-  const socials = await getSocials();
   const skills = await getSkills();
 
   if (!site) {
@@ -98,10 +97,10 @@ export default async function Home() {
           <div className="py-4 sm:py-6">
             <Postit>
               I built this page using Next.js, TailwindCSS, Motion, and Strapi.
-              I'm using a collection of reusable components I built that can be
-              customized via props (demos + code on my blog), as well as the
-              Strapi Headless CMS so that I can scale and update the content on
-              here efficiently. I deployed this page using Netlify + Strapi
+              I&apos;m using a collection of reusable components I built that
+              can be customized via props (demos + code on my blog), as well as
+              the Strapi Headless CMS so that I can scale and update the content
+              on here efficiently. I deployed this page using Netlify + Strapi
               Cloud with a CI/CD Pipeline built using Github Actions :)
             </Postit>
           </div>
