@@ -8,11 +8,9 @@ import InfiniteMarquee from "./components/InfiniteMarquee";
 import Postit from "./components/Postit";
 import HighlightText from "./components/HighlightText";
 import HighlightAction from "./components/HighlightAction";
-import { STRAPI_URL } from "@/lib/strapi";
 import DottedHoverGrid from "./components/DottedHoverGrid";
 import { Contact } from "./components/Contact";
-
-export const revalidate = 60;
+import SkillItem from "./components/SkillItem";
 
 export default async function Home() {
   const site = await getSite();
@@ -36,27 +34,18 @@ export default async function Home() {
 
         {/* Skills marquee */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8 md:pt-16">
-          <InfiniteMarquee
-            items={skills?.map((skill) => (
-              <a
-                key={skill.id}
-                className="inline-flex items-center"
-                tabIndex={-1}
-              >
-                <img
-                  src={skill.logo?.url}
-                  alt={skill.tool}
-                  loading="lazy"
-                  className="h-8 sm:h-9 md:h-10 w-auto opacity-80 hover:opacity-100 transition rounded"
-                />
-              </a>
-            ))}
-            speedSeconds={50}
-            gapClass="gap-6 sm:gap-8 md:gap-10"
-            reverse
-            fadeEdges={true}
-            // If you implement prefers-reduced-motion in InfiniteMarquee, you can pass a prop here to disable.
-          />
+          <div className="relative pb-12" style={{ overflow: "visible" }}>
+            <InfiniteMarquee
+              items={skills?.map((skill) => (
+                <SkillItem key={skill.id} skill={skill} />
+              ))}
+              speedSeconds={50}
+              gapClass="gap-6 sm:gap-8 md:gap-10"
+              reverse
+              fadeEdges={true}
+              // If you implement prefers-reduced-motion in InfiniteMarquee, you can pass a prop here to disable.
+            />
+          </div>
         </div>
 
         {/* Header: name + socials/resume */}
@@ -108,12 +97,12 @@ export default async function Home() {
         <section className="container mx-auto px-4 sm:px-6 lg:px-12">
           <div className="py-4 sm:py-6">
             <Postit>
-              i built this portfolio using next.js, tailwindcss, framer motion,
-              and strapi. im using a collection of reusable components i built
-              that can be customized via props (demos + code on my blog), as
-              well as the strapi headless cms so that i can scale and update the
-              content on here efficiently. deployed using netlify + strapi cloud
-              :)
+              I built this page using Next.js, TailwindCSS, Motion, and Strapi.
+              I'm using a collection of reusable components I built that can be
+              customized via props (demos + code on my blog), as well as the
+              Strapi Headless CMS so that I can scale and update the content on
+              here efficiently. I deployed this page using Netlify + Strapi
+              Cloud with a CI/CD Pipeline built using Github Actions :)
             </Postit>
           </div>
         </section>

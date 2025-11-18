@@ -74,7 +74,7 @@ export default function InfiniteMarquee({
   return (
     <div
       className={[
-        "relative w-full overflow-hidden",
+        "relative w-full overflow-x-hidden overflow-y-visible",
         fadeEdges
           ? "[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
           : "",
@@ -85,7 +85,7 @@ export default function InfiniteMarquee({
         ref={ulRef}
         style={styleVars}
         className={[
-          "inline-flex flex-nowrap list-none m-0 p-0 transform-gpu",
+          "inline-flex flex-nowrap list-none m-0 p-0 transform-gpu overflow-visible",
           gapClass,
         ].join(" ")}
         onMouseEnter={() => pauseOnHover && setPaused(true)}
@@ -98,7 +98,7 @@ export default function InfiniteMarquee({
           <li
             key={`a-${i}`}
             ref={i === 0 ? firstARef : undefined}
-            className="shrink-0"
+            className="shrink-0 overflow-visible"
           >
             {it}
           </li>
@@ -108,7 +108,7 @@ export default function InfiniteMarquee({
           <li
             key={`b-${i}`}
             ref={i === 0 ? firstBRef : undefined}
-            className="shrink-0"
+            className="shrink-0 overflow-visible"
             aria-hidden
           >
             {it}

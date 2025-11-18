@@ -76,7 +76,7 @@ body {
   min-height: 100vh;
   width: 100%;
   background-color: #0a0a0a;
-  background-image: radial-gradient(rgba(0, 113, 243, 0.239) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(rgba(0, 113, 243, 0.327) 1.5px, transparent 1.5px);
   background-size: 20px 20px;
   background-position: 0 0;
 }

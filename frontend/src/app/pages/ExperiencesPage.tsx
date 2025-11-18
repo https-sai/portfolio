@@ -2,6 +2,7 @@ import React from "react";
 import { getExperiences } from "@/lib/data";
 import { Blocks } from "@/lib/utils";
 import HighlightText from "../components/HighlightText";
+import SkillItem from "../components/SkillItem";
 
 const experiences = await getExperiences();
 
@@ -47,7 +48,7 @@ export default function ExperiencesPage() {
       {sortedExperiences.map((exp) => (
         <div
           key={exp.id}
-          className="glass-card border border-white/50 rounded-lg p-4 text-white relative overflow-hidden"
+          className="glass-card border border-white/50 rounded-lg px-6 py-4 text-white relative overflow-hidden"
         >
           <div className="space-y-2">
             <h1>
@@ -61,7 +62,14 @@ export default function ExperiencesPage() {
             </h1>
             <h1 className="text-xs font-bold mb-2">{exp.dates}</h1>
           </div>
-          <div className="p-4">
+          {exp.skills && exp.skills.length > 0 && (
+            <div className="flex gap-2 py-2 flex-wrap">
+              {exp.skills.map((skill) => (
+                <SkillItem key={skill.id} skill={skill} size="sm" />
+              ))}
+            </div>
+          )}
+          <div className="py-4">
             {Array.isArray(exp.description) ? (
               <Blocks nodes={exp.description} />
             ) : exp.description ? (

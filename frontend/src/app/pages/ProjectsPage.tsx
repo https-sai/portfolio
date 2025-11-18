@@ -3,7 +3,7 @@ import { getProjects } from "@/lib/data";
 import { Blocks } from "@/lib/utils";
 import HighlightText from "../components/HighlightText";
 import HighlightAction from "../components/HighlightAction";
-import { STRAPI_URL } from "@/lib/strapi";
+import SkillItem from "../components/SkillItem";
 
 const projects = await getProjects();
 
@@ -13,20 +13,15 @@ export default function ProjectsPage() {
       {projects.map((proj) => (
         <div
           key={proj.id}
-          className="glass-card border border-white/50 rounded-lg p-4 text-white relative overflow-hidden"
+          className="glass-card border border-white/50 rounded-lg px-6 py-4 text-white relative overflow-hidden"
         >
           <HighlightText text={proj.title} className="text-xl font-bold" />
-          <div className="flex gap-2 py-2">
+          <div className="flex gap-2 py-2 flex-wrap">
             {proj.skills?.map((skill) => (
-              <img
-                key={skill.id}
-                src={skill.logo?.url}
-                alt={skill.tool}
-                className="w-5 h-5 opacity-80 hover:opacity-100 rounded"
-              ></img>
+              <SkillItem key={skill.id} skill={skill} size="sm" />
             ))}
           </div>
-          <div className="px-2 py-4">
+          <div className="py-4">
             {Array.isArray(proj.description) ? (
               <Blocks nodes={proj.description} />
             ) : proj.description ? (
