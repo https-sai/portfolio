@@ -23,18 +23,6 @@
         "videos",
         "audios"
       ]
-    },
-    "experience": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::experience.experience",
-      "inversedBy": "skills"
-    },
-    "project": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::project.project",
-      "inversedBy": "skills"
     }
   }
 }
