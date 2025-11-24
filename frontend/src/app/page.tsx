@@ -98,10 +98,11 @@ export default async function Home() {
             <Postit>
               I built this page using Next.js, TailwindCSS, Motion, and Strapi.
               I&apos;m using a collection of reusable components I built that
-              can be customized via props (demos + code on my blog), as well as
-              the Strapi Headless CMS so that I can scale and update the content
-              on here efficiently. I deployed this page using Netlify + Strapi
-              Cloud with a CI/CD Pipeline built using Github Actions :)
+              can be customized via props (demos + code on my blog). I am
+              managing and fetching the content on here using Strapi Headless
+              CMS and GraphQL so that I can scale and update the content
+              efficiently. I deployed this page using Netlify + Strapi Cloud
+              with a CI/CD Pipeline built using Github Actions :)
             </Postit>
           </div>
         </section>
