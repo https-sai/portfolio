@@ -76,8 +76,8 @@ body {
   min-height: 100vh;
   width: 100%;
   background-color: #0a0a0a;
-  background-image: radial-gradient(rgba(0, 113, 243, 0.327) 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(0, 113, 243, 0.207) 1.5px, transparent 1.5px);
+  background-size: 35px 35px;
   background-position: 0 0;
 }
 .grid-bg::before {
@@ -86,10 +86,10 @@ body {
   inset: 0;
   pointer-events: none;
   background-image: radial-gradient(rgba(0,112,243,.4) 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+  background-size: 35px 35px;
   background-position: 0 0;
-  -webkit-mask-image: radial-gradient(100px 100px at var(--x, -1000px) var(--y, -1000px), #000 60%, transparent 61%);
-  mask-image: radial-gradient(100px 100px at var(--x, -1000px) var(--y, -1000px), #000 60%, transparent 61%);
+  -webkit-mask-image: radial-gradient(150px 150px at var(--x, -1000px) var(--y, -1000px), #000 60%, transparent 61%);
+  mask-image: radial-gradient(150px 150px at var(--x, -1000px) var(--y, -1000px), #000 60%, transparent 61%);
 }
 
 
