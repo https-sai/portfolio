@@ -1,6 +1,7 @@
 // components/HighlightName.tsx
 "use client";
 import { motion } from "framer-motion";
+import { useTheme } from "./ThemeProvider";
 
 export default function HighlightText({
   text,
@@ -9,7 +10,13 @@ export default function HighlightText({
   text: string;
   className?: string;
 }) {
+  const { theme } = useTheme();
   const variants = { rest: { width: "0%" }, hover: { width: "100%" } };
+
+  // Highlight uses default text color, hover text uses default bg color
+  // Light mode: black highlight, white hover text
+  // Dark mode: white highlight, black hover text
+  const baseTextColor = theme === "dark" ? "default-text" : "text-black";
 
   return (
     <motion.span
@@ -18,12 +25,15 @@ export default function HighlightText({
       whileHover="hover"
       animate="rest"
     >
-      <span className={`relative z-10 text-white ${className}`}>{text}</span>
+      <span className={`relative z-10 ${baseTextColor} ${className}`}>
+        {text}
+      </span>
 
       <motion.span
         variants={variants}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="absolute inset-y-0 left-0 z-0 rounded-sm bg-white"
+        className="absolute inset-y-0 left-0 z-0"
+        style={{ backgroundColor: "var(--default-text-color)" }}
       />
 
       <motion.span
@@ -31,7 +41,12 @@ export default function HighlightText({
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="absolute inset-y-0 left-0 z-20 overflow-hidden"
       >
-        <span className={`block text-black ${className}`}>{text}</span>
+        <span
+          className={`block ${className}`}
+          style={{ color: "var(--default-bg-color)" }}
+        >
+          {text}
+        </span>
       </motion.span>
     </motion.span>
   );

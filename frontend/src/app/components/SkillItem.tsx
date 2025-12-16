@@ -32,7 +32,7 @@ export default function SkillItem({ skill, size = "md" }: SkillItemProps) {
           const rect = itemRef.current.getBoundingClientRect();
           setCoords({
             x: rect.left + rect.width / 2,
-            y: rect.top,
+            y: rect.bottom,
           });
         }
       };
@@ -51,16 +51,23 @@ export default function SkillItem({ skill, size = "md" }: SkillItemProps) {
   const tooltipElement =
     showTooltip && mounted ? (
       <div
-        className="fixed px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md whitespace-nowrap pointer-events-none shadow-xl z-[99999] transition-opacity duration-200"
+        className="fixed px-2 py-1 text-xs font-medium rounded-md whitespace-nowrap pointer-events-none shadow-xl z-[99999] transition-opacity duration-200"
         style={{
           left: `${coords.x}px`,
-          top: `${coords.y - 10}px`,
-          transform: "translate(-50%, -100%)",
+          top: `${coords.y + 10}px`,
+          transform: "translate(-50%, 0%)",
+          backgroundColor: "var(--default-text-color)",
+          color: "var(--default-bg-color)",
+          border:
+            "1px dotted color-mix(in srgb, var(--default-text-color) 20%, transparent)",
         }}
       >
         {skill.tool}
-        <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px">
-          <div className="border-4 border-transparent border-t-gray-900"></div>
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 -mb-px">
+          <div
+            className="border-6 border-transparent"
+            style={{ borderBottomColor: "var(--default-text-color)" }}
+          ></div>
         </div>
       </div>
     ) : null;

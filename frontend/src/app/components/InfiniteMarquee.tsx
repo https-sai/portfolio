@@ -85,7 +85,7 @@ export default function InfiniteMarquee({
         ref={ulRef}
         style={styleVars}
         className={[
-          "inline-flex flex-nowrap list-none m-0 p-0 transform-gpu overflow-visible",
+          "inline-flex flex-nowrap list-none m-0 p-0 transform-gpu overflow-visible items-center",
           gapClass,
         ].join(" ")}
         onMouseEnter={() => pauseOnHover && setPaused(true)}

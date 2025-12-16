@@ -48,7 +48,7 @@ export default function ExperiencesPage() {
       {sortedExperiences.map((exp) => (
         <div
           key={exp.id}
-          className="glass-card border border-white/50 rounded-lg px-6 py-4 text-white relative overflow-hidden"
+          className="card px-6 py-4 default-text relative overflow-hidden"
         >
           <div className="space-y-2">
             <h1>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode, MouseEventHandler } from "react";
+import { useTheme } from "./ThemeProvider";
 
 type CommonProps = {
   children: ReactNode;
@@ -29,26 +30,38 @@ const variants = {
 };
 
 function Inner({ children }: { children: ReactNode }) {
+  const { theme } = useTheme();
+
+  // Highlight uses default text color, hover text uses default bg color
+  // Light mode: black highlight, white hover text
+  // Dark mode: white highlight, black hover text
+  const bgColor = "var(--default-text-color)"; // Use text color for highlight
+  const hoverTextColor = "var(--default-bg-color)"; // Use bg color for hover text
+
   return (
     <>
-      {/* expanding white background */}
+      {/* expanding background */}
       <motion.span
         variants={variants}
         transition={{ duration: 0.35, ease: "easeOut" }}
-        className="absolute inset-y-0 left-0 z-10 bg-white"
+        className="absolute inset-y-0 left-0 z-10"
+        style={{ backgroundColor: bgColor }}
       />
 
-      {/* base (white) content above bg */}
+      {/* base (default) content above bg */}
       <span className="relative z-20 inline-flex items-center">{children}</span>
 
-      {/* clipped black content that appears only inside the sweep */}
+      {/* clipped content that appears only inside the sweep */}
       <motion.span
         aria-hidden
         variants={variants}
         transition={{ duration: 0.35, ease: "easeOut" }}
         className="absolute inset-y-0 left-0 z-30 overflow-hidden"
       >
-        <span className="inline-flex items-center px-3 py-1 text-black">
+        <span
+          className="inline-flex items-center px-3 py-0.5"
+          style={{ color: hoverTextColor }}
+        >
           {children}
         </span>
       </motion.span>
@@ -59,10 +72,10 @@ function Inner({ children }: { children: ReactNode }) {
 export default function HighlightAction(props: Props) {
   const baseClasses = [
     "relative inline-flex items-center justify-center",
-    "px-3 py-1 rounded border border-white",
-    "bg-black text-white",
+    "px-3 h-[30px] card",
+    "default-text",
     "overflow-hidden select-none",
-    "transition-colors focus:outline-none focus:ring-2 focus:ring-white/40",
+    "transition-colors focus:outline-none focus:ring-2",
     props.className ?? "",
   ].join(" ");
 

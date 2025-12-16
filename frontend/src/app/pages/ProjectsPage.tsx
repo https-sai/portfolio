@@ -9,11 +9,11 @@ const projects = await getProjects();
 
 export default function ProjectsPage() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2">
       {projects.map((proj) => (
         <div
           key={proj.id}
-          className="glass-card border border-white/50 rounded-lg px-6 py-4 text-white relative overflow-hidden"
+          className="card px-6 py-4 default-text relative overflow-hidden"
         >
           <HighlightText text={proj.title} className="text-xl font-bold" />
           <div className="flex gap-2 py-2 flex-wrap">
@@ -35,7 +35,7 @@ export default function ProjectsPage() {
               href={proj.link}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1 rounded border-white"
+              className="inline-flex items-center gap-2 px-3 py-1"
             >
               live
             </HighlightAction>
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
               href={proj.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-1 rounded border-white"
+              className="inline-flex items-center gap-2 px-3 py-1"
             >
               repo
             </HighlightAction>

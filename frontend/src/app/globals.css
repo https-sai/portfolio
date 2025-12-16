@@ -4,8 +4,20 @@
 
 
 :root {
-  --background: #ffffff;
+  --background: #0a0a0a;
   --foreground: #171717;
+  /* Light mode colors */
+  --light-bg-color: #f0ebe2; /* slate-200 */
+  --light-text-color: #1e0f05; /* slate-950 */
+  --light-border-color: #1e0f05; /* slate-950 */
+  /* Dark mode colors */
+  --dark-bg-color: #020617; /* slate-950 */
+  --dark-text-color: #ffffff;
+  --dark-border-color: #ffffff;
+  /* Default to dark mode */
+  --default-bg-color: var(--dark-bg-color);
+  --default-text-color: var(--dark-text-color);
+  --default-border-color: var(--dark-border-color);
 }
 
 @theme inline {
@@ -15,17 +27,70 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Light mode */
+:root.light-mode {
+  --default-bg-color: var(--light-bg-color);
+  --default-text-color: var(--light-text-color);
+  --default-border-color: var(--light-border-color);
+  --background: var(--light-bg-color);
+  --foreground: var(--light-text-color);
+}
+
+/* Dark mode (default) */
+:root.dark-mode,
+:root:not(.light-mode) {
+  --default-bg-color: var(--dark-bg-color);
+  --default-text-color: var(--dark-text-color);
+  --default-border-color: var(--dark-border-color);
+  --background: var(--dark-bg-color);
+  --foreground: var(--dark-text-color);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: "Gabarito", sans-serif;
+  /* Visible layout grid system - spans entire page */
+  background-image: 
+    /* Primary layout grid - vertical columns */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(var(--grid-primary-size) - 1px),
+      var(--grid-color-primary) calc(var(--grid-primary-size) - 1px),
+      var(--grid-color-primary) var(--grid-primary-size)
+    ),
+    /* Primary layout grid - horizontal rows */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--grid-primary-size) - 1px),
+      var(--grid-color-primary) calc(var(--grid-primary-size) - 1px),
+      var(--grid-color-primary) var(--grid-primary-size)
+    ),
+    /* Secondary micro-grid - vertical lines */
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(var(--grid-secondary-size) - 1px),
+      var(--grid-color-secondary) calc(var(--grid-secondary-size) - 1px),
+      var(--grid-color-secondary) var(--grid-secondary-size)
+    ),
+    /* Secondary micro-grid - horizontal lines */
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--grid-secondary-size) - 1px),
+      var(--grid-color-secondary) calc(var(--grid-secondary-size) - 1px),
+      var(--grid-color-secondary) var(--grid-secondary-size)
+    );
+  background-size: 
+    100% 100%, /* Primary vertical */
+    100% 100%, /* Primary horizontal */
+    100% 100%, /* Secondary vertical */
+    100% 100%; /* Secondary horizontal */
+  background-position: 0 0, 0 0, 0 0, 0 0;
+  min-height: 100vh;
 }
 
 @layer utilities {
@@ -47,208 +112,48 @@ body {
   background-color: #020617; /* slate-950 */
 }
 
-.lined-background-container {
-  width: 100%;
-  height: full; /* Adjust as needed */
-  --grid-size: 20px;                    /* spacing between lines */
-  --grid-thickness: 1px;                /* line weight */
-  --grid-color: #3ca1ff4b; 
-  background-color: #f6fcd5;            /* slate-950 */
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      var(--grid-color) 0 calc(var(--grid-thickness)),
-      transparent calc(var(--grid-thickness)) var(--grid-size)
-    );
-  background-size: var(--grid-size) var(--grid-size);
-}
-
 .iceland-regular {
   font-family: "Iceland", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
-/* Dotted grid background + hover spotlight */
-.grid-bg {
-  position: relative;
-  isolation: isolate;
-  min-height: 100vh;
-  width: 100%;
-  background-color: #0a0a0a;
-  background-image: radial-gradient(rgba(0, 113, 243, 0.207) 1.5px, transparent 1.5px);
-  background-size: 35px 35px;
-  background-position: 0 0;
-}
-.grid-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(0,112,243,.4) 1.5px, transparent 1.5px);
-  background-size: 35px 35px;
-  background-position: 0 0;
-  -webkit-mask-image: radial-gradient(150px 150px at var(--x, -1000px) var(--y, -1000px), #000 60%, transparent 61%);
-  mask-image: radial-gradient(150px 150px at var(--x, -1000px) var(--y, -1000px), #000 60%, transparent 61%);
-}
-
-
 @keyframes shine {
   0% { transform: translateX(-100%) translateY(-50%) rotate(15deg); }
   100% { transform: translateX(200%) translateY(-50%) rotate(15deg); }
 }
 
-.glass-card {
-  background: rgba(15, 23, 42, 0.4); /* slate-900 with transparency */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.37),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+/* Outline classes for layout grid borders */
+.outline1 {
+  border: 1px dotted color-mix(in srgb, var(--default-border-color) 50%, transparent);
 }
 
-.glass-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 5%,
-    rgba(255, 255, 255, 0) 15%,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0) 85%,
-    rgba(255, 255, 255, 0) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
+.outline2 {
+  border: 1px dashed color-mix(in srgb, var(--default-border-color) 20%, transparent);
 }
 
-.glass-card:hover {
-  background: rgba(15, 23, 42, 0.5);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 
-    0 8px 32px 0 rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
-    inset 0 -2px 0 0 rgb(255, 255, 255),
-    inset -2px 0 0 0 rgb(255, 255, 255);
+.outline3 {
+  border: 1px dotted color-mix(in srgb, var(--default-border-color) 20%, transparent);
 }
 
-.glass-card:hover::before {
-  transform: translateX(0);
+.card {
+  transition: border 0.3s ease;
+  border: 1px dotted color-mix(in srgb, var(--default-border-color) 50%, transparent);
 }
 
-/* Contact card shine effects */
-.contact-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 5%,
-    rgba(255, 255, 255, 0) 15%,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0) 85%,
-    rgba(255, 255, 255, 0) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  pointer-events: none;
-  z-index: 1;
+.card:hover {
+  border: 1px solid var(--default-border-color) ;
 }
 
-.contact-card:hover::before {
-  transform: translateX(0);
+/* Utility classes for default colors */
+.default-text {
+  color: var(--default-text-color);
 }
 
-/* Blog card - white shine */
-.contact-card-blog:hover::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 5%,
-    rgba(255, 255, 255, 0) 15%,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0) 85%,
-    rgba(255, 255, 255, 0) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
+.default-bg {
+  background-color: var(--default-bg-color);
 }
 
-/* Github card - white shine */
-.contact-card-github:hover::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 5%,
-    rgba(255, 255, 255, 0) 15%,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0) 85%,
-    rgba(255, 255, 255, 0) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-/* LinkedIn card - white shine */
-.contact-card-linkedin:hover::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 5%,
-    rgba(255, 255, 255, 0) 15%,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0) 85%,
-    rgba(255, 255, 255, 0) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
-}
-
-/* X card - white shine */
-.contact-card-x:hover::before {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 5%,
-    rgba(255, 255, 255, 0) 15%,
-    rgba(255, 255, 255, 0.05) 25%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0) 65%,
-    rgba(255, 255, 255, 0.05) 75%,
-    rgba(255, 255, 255, 0) 85%,
-    rgba(255, 255, 255, 0) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
+.default-border {
+  border-color: var(--default-border-color);
 }

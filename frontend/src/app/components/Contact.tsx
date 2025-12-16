@@ -38,9 +38,9 @@ const Contact = () => {
   }, [isBlogHovered, isLinkedInHovered, isXHovered]);
 
   return (
-    <div className="w-full max-w-7xl px-4 sm:px-8 md:pl-12 lg:pl-20">
+    <div className="">
       <LayoutGroup>
-        <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-auto sm:grid-rows-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-auto sm:grid-rows-3">
           <motion.a
             href="https://sahmed21.notion.site/Saima-s-Blog-2292d237a82280e8a0cada8aaab5c9bb"
             target="_blank"
@@ -54,7 +54,7 @@ const Contact = () => {
                 damping: 35,
               },
             }}
-            className={`contact-card contact-card-blog border border-white/50 rounded-lg hover:bg-cyan-400/30 hover:[box-shadow:inset_0_-2px_0_0_rgb(255,255,255),inset_-2px_0_0_0_rgb(255,255,255)] transition-colors relative overflow-hidden cursor-pointer ${gridPositions.blog}`}
+            className={`contact-card contact-card-blog card hover:bg-cyan-900/80 relative overflow-hidden cursor-pointer ${gridPositions.blog}`}
             onMouseEnter={() => setIsBlogHovered(true)}
             onMouseLeave={() => setIsBlogHovered(false)}
           >
@@ -68,7 +68,7 @@ const Contact = () => {
                   : ("hidden" as const),
               }}
               transition={{ duration: 0.2 }}
-              className="absolute top-2 right-4 whitespace-nowrap bg-white/90 text-black text-xs px-2 py-1 rounded pointer-events-none z-50"
+              className="absolute top-2 right-4 whitespace-nowrap default-bg opacity-90 text-xs px-2 py-1 rounded pointer-events-none z-50"
             >
               blog
             </motion.div>
@@ -97,7 +97,7 @@ const Contact = () => {
                 damping: 35,
               },
             }}
-            className={`contact-card contact-card-github border border-white/50 rounded-lg hover:bg-indigo-500/40 hover:[box-shadow:inset_0_-2px_0_0_rgb(255,255,255),inset_-2px_0_0_0_rgb(255,255,255)] transition-colors relative overflow-hidden cursor-pointer ${gridPositions.github}`}
+            className={`contact-card contact-card-github card hover:bg-indigo-900/80 relative overflow-hidden cursor-pointer ${gridPositions.github}`}
             onMouseEnter={() => setIsGithubHovered(true)}
             onMouseLeave={() => setIsGithubHovered(false)}
           >
@@ -111,7 +111,7 @@ const Contact = () => {
                   : ("hidden" as const),
               }}
               transition={{ duration: 0.2 }}
-              className="absolute top-2 right-4 whitespace-nowrap bg-white/90 text-black text-xs px-2 py-1 rounded pointer-events-none z-50"
+              className="absolute top-2 right-4 whitespace-nowrap default-bg opacity-90  text-xs px-2 py-1 rounded pointer-events-none z-50"
             >
               github
             </motion.div>
@@ -140,7 +140,7 @@ const Contact = () => {
                 damping: 35,
               },
             }}
-            className={`contact-card contact-card-linkedin border border-white/50 rounded-lg hover:bg-blue-500/40 hover:[box-shadow:inset_0_-2px_0_0_rgb(255,255,255),inset_-2px_0_0_0_rgb(255,255,255)] transition-colors relative overflow-hidden cursor-pointer ${gridPositions.linkedin}`}
+            className={`contact-card contact-card-linkedin card hover:bg-blue-900/80 relative overflow-hidden cursor-pointer ${gridPositions.linkedin}`}
             onMouseEnter={() => {
               setIsLinkedInHovered(true);
               setIsXHovered(false);
@@ -159,7 +159,7 @@ const Contact = () => {
                   : ("hidden" as const),
               }}
               transition={{ duration: 0.2 }}
-              className="absolute top-2 right-4 whitespace-nowrap bg-white/90 text-black text-xs px-2 py-1 rounded pointer-events-none z-50"
+              className="absolute top-2 right-4 whitespace-nowrap default-bg opacity-90 text-xs px-2 py-1 rounded pointer-events-none z-50"
             >
               linkedin
             </motion.div>
@@ -188,7 +188,7 @@ const Contact = () => {
                 damping: 35,
               },
             }}
-            className={`contact-card contact-card-x border border-white/50 rounded-lg hover:bg-slate-600/40 hover:[box-shadow:inset_0_-2px_0_0_rgb(255,255,255),inset_-2px_0_0_0_rgb(255,255,255)] transition-colors relative overflow-hidden cursor-pointer ${gridPositions.x}`}
+            className={`contact-card contact-card-x card hover:bg-slate-800/80 relative overflow-hidden cursor-pointer ${gridPositions.x}`}
             onMouseEnter={() => {
               setIsXHovered(true);
               setIsLinkedInHovered(false);
@@ -207,7 +207,7 @@ const Contact = () => {
                   : ("hidden" as const),
               }}
               transition={{ duration: 0.2 }}
-              className="absolute top-2 right-4 whitespace-nowrap bg-white/90 text-black text-xs px-2 py-1 rounded pointer-events-none z-50"
+              className="absolute top-2 right-4 whitespace-nowrap default-bg opacity-90 text-xs px-2 py-1 rounded pointer-events-none z-50"
             >
               x
             </motion.div>
