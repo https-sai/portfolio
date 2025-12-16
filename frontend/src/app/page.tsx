@@ -10,6 +10,9 @@ import ThemeToggle from "./components/ThemeToggle";
 import HighlightAction from "./components/HighlightAction";
 import { Contact } from "./components/Contact";
 import SkillItem from "./components/SkillItem";
+import Image from "next/image";
+import textHighlightImage from "./pics/textHighlight.png";
+import roadmapImage from "./pics/roadmap.png";
 
 export default async function Home() {
   const site = await getSite();
@@ -103,6 +106,52 @@ export default async function Home() {
                   </p>
                 ) : null}
               </div>
+              <div className="my-4 flex gap-4 flex-wrap">
+                <a
+                  href="https://sahmed21.notion.site/open-source-contributions-2bc2d237a82280d7ae5ac8e351bbec3f"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block relative group cursor-pointer flex-1 min-w-[200px]"
+                >
+                  <div className="relative w-full max-w-xs mx-auto">
+                    <div className="absolute bottom-2 right-2 z-10">
+                      <span className="default-text text-xs font-medium px-2 py-1 default-bg opacity-90 rounded">
+                        recent open source contributions
+                      </span>
+                    </div>
+                    <div className="relative w-full aspect-video rounded overflow-hidden outline3">
+                      <Image
+                        src={textHighlightImage}
+                        alt="Recent open source contributions"
+                        fill
+                        className="object-cover group-hover:opacity-80 transition-opacity"
+                      />
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="https://sahmed21.notion.site/my-web-dev-roadmap-this-shouldn-t-be-free-2292d237a822804da8c7ef13d8909cd0?pvs=143"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block relative group cursor-pointer flex-1 min-w-[200px]"
+                >
+                  <div className="relative w-full max-w-xs mx-auto">
+                    <div className="absolute bottom-2 right-2 z-10">
+                      <span className="default-text text-xs font-medium px-2 py-1 default-bg opacity-90 rounded">
+                        my web dev roadmap
+                      </span>
+                    </div>
+                    <div className="relative w-full aspect-video rounded overflow-hidden outline3">
+                      <Image
+                        src={roadmapImage}
+                        alt="My web dev roadmap"
+                        fill
+                        className="object-cover group-hover:opacity-80 transition-opacity"
+                      />
+                    </div>
+                  </div>
+                </a>
+              </div>
               <div className="flex gap-2 py-2 mt-4">
                 {site.resume?.url && (
                   <HighlightAction
@@ -123,7 +172,7 @@ export default async function Home() {
           <div className="border-r outline2"></div>
 
           {/* Column 4: Contact card (35%) */}
-          <div className="border-r outline2">
+          <div className="border-r outline2 h-full">
             <div className="default-text h-full">
               <Contact />
             </div>

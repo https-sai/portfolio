@@ -38,9 +38,9 @@ const Contact = () => {
   }, [isBlogHovered, isLinkedInHovered, isXHovered]);
 
   return (
-    <div className="">
+    <div className="h-full">
       <LayoutGroup>
-        <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-auto sm:grid-rows-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-auto sm:grid-rows-3 h-full">
           <motion.a
             href="https://sahmed21.notion.site/Saima-s-Blog-2292d237a82280e8a0cada8aaab5c9bb"
             target="_blank"
